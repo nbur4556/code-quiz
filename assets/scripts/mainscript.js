@@ -4,6 +4,8 @@ function MultipleChoiceQuestion(question, answers, correctAnswerIndex) {
     this.correctAnswerIndex = correctAnswerIndex;
 }
 
+var questionDisplay = document.querySelector('#question-display');
+
 window.onload = function () {
     let questionArray = new Array();
 
@@ -25,8 +27,32 @@ window.onload = function () {
         ],
         3
     );
+    questionArray[2] = new MultipleChoiceQuestion(
+        'How old is the sun?',
+        [
+            '23000 years',
+            '52000 years',
+            '24 days'
+        ],
+        3
+    );
 
-    console.log(questionArray);
+    displayQuestion(questionArray[0]);
 
     return questionArray;
+}
+
+function displayQuestion(mcQuestion) {
+    let question = document.createElement('h3');
+    let answers = document.createElement('ol');
+
+    question.textContent = mcQuestion.question;
+    for (let i = 0; i < mcQuestion.answers.length; i++) {
+        let answerI = document.createElement('li');
+        answerI.textContent = mcQuestion.answers[i];
+        answers.appendChild(answerI);
+    }
+
+    questionDisplay.appendChild(question);
+    questionDisplay.appendChild(answers);
 }

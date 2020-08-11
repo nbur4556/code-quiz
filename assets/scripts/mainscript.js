@@ -5,12 +5,14 @@ function MultipleChoiceQuestion(question, answers, correctAnswerIndex) {
     this.correctAnswerIndex = correctAnswerIndex;
 }
 
+var questionArray;
 var questionDisplay;
+var score = 0;
 
 window.onload = function () {
-    let questionArray = buildQuestionArray();
-    let currentAnswers;
+    questionArray = buildQuestionArray();
     questionDisplay = document.querySelector('#question-display');
+    let currentAnswers;
 
     displayQuestion(questionArray[1]);
 
@@ -18,8 +20,16 @@ window.onload = function () {
     currentAnswers.addEventListener('click', checkUserAnswer);
 }
 
+//Check if answer is correct
 function checkUserAnswer(e) {
-    console.log(e.target.getAttribute('data-index'));
+    //If answer is correct, increase score
+    if (e.target.getAttribute('data-correct') == 'true') {
+        score++
+    }
+
+    questionDisplay.removeChild(questionDisplay.children[0]);
+    questionDisplay.removeChild(questionDisplay.children[0]);
+    displayQuestion(questionArray[0]);
 }
 
 //Displays a MultipleChoiceQuestion to the questionDisplay
@@ -35,7 +45,13 @@ function displayQuestion(mcQuestion) {
     for (let i = 0; i < mcQuestion.answers.length; i++) {
         let answerI = document.createElement('button');
         answerI.textContent = mcQuestion.answers[i];
-        answerI.setAttribute('data-index', i);
+
+        if (i == mcQuestion.correctAnswerIndex) {
+            answerI.setAttribute('data-correct', 'true');
+        }
+        else {
+            answerI.setAttribute('data-correct', 'false');
+        }
 
         //Randomize answer order
         if (Math.random() > 0.5) {

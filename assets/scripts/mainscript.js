@@ -12,12 +12,8 @@ var score = 0;
 window.onload = function () {
     questionArray = buildQuestionArray();
     questionDisplay = document.querySelector('#question-display');
-    let currentAnswers;
 
-    displayQuestion(questionArray[1]);
-
-    currentAnswers = document.getElementById('question-list');
-    currentAnswers.addEventListener('click', checkUserAnswer);
+    setQuestion();
 }
 
 //Check if answer is correct
@@ -29,7 +25,19 @@ function checkUserAnswer(e) {
 
     questionDisplay.removeChild(questionDisplay.children[0]);
     questionDisplay.removeChild(questionDisplay.children[0]);
-    displayQuestion(questionArray[0]);
+
+    //Display next question
+    setQuestion();
+}
+
+//Get random question from questionArray, remove the array, and set listeners
+function setQuestion() {
+    let currentAnswers;
+    let displayIndex = Math.floor(Math.random() * questionArray.length);
+    displayQuestion(questionArray[displayIndex]);
+
+    currentAnswers = document.getElementById('question-list');
+    currentAnswers.addEventListener('click', checkUserAnswer);
 }
 
 //Displays a MultipleChoiceQuestion to the questionDisplay

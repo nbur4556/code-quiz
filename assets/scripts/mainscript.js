@@ -9,9 +9,17 @@ var questionDisplay;
 
 window.onload = function () {
     let questionArray = buildQuestionArray();
+    let currentAnswers;
     questionDisplay = document.querySelector('#question-display');
 
     displayQuestion(questionArray[1]);
+
+    currentAnswers = document.getElementById('question-list');
+    currentAnswers.addEventListener('click', checkUserAnswer);
+}
+
+function checkUserAnswer(e) {
+    console.log(e.target.getAttribute('data-index'));
 }
 
 //Displays a MultipleChoiceQuestion to the questionDisplay
@@ -22,9 +30,12 @@ function displayQuestion(mcQuestion) {
 
     //Set text content
     question.textContent = mcQuestion.question;
+    answers.setAttribute('id', 'question-list');
+
     for (let i = 0; i < mcQuestion.answers.length; i++) {
         let answerI = document.createElement('button');
         answerI.textContent = mcQuestion.answers[i];
+        answerI.setAttribute('data-index', i);
 
         //Randomize answer order
         if (Math.random() > 0.5) {
@@ -40,6 +51,7 @@ function displayQuestion(mcQuestion) {
     questionDisplay.appendChild(answers);
 }
 
+//Creates all MultipleChoiceQuestion objects and returns as an array
 function buildQuestionArray() {
     let allQuestions = new Array();
 

@@ -13,7 +13,8 @@ window.onload = function () {
     questionArray = buildQuestionArray();
     questionDisplay = document.querySelector('#question-display');
 
-    setQuestion();
+    //Display random question
+    setCurrentQuestion();
 }
 
 //Check if answer is correct
@@ -23,21 +24,32 @@ function checkUserAnswer(e) {
         score++
     }
 
-    questionDisplay.removeChild(questionDisplay.children[0]);
-    questionDisplay.removeChild(questionDisplay.children[0]);
-
     //Display next question
-    setQuestion();
+    if (questionArray.length > 0) {
+        setCurrentQuestion();
+    }
+    else {
+        //Score Page
+        console.log('score page');
+        console.log('score:', score);
+    }
 }
 
 //Get random question from questionArray, remove the array, and set listeners
-function setQuestion() {
-    let currentAnswers;
+function setCurrentQuestion() {
     let displayIndex = Math.floor(Math.random() * questionArray.length);
+
+    //Remove previous question and display new question
+    while (questionDisplay.children[0]) {
+        questionDisplay.removeChild(questionDisplay.children[0]);
+    }
     displayQuestion(questionArray[displayIndex]);
 
-    currentAnswers = document.getElementById('question-list');
-    currentAnswers.addEventListener('click', checkUserAnswer);
+    //Remove current question object from index
+    questionArray.splice(displayIndex, 1);
+
+    //Setup Listeners
+    document.getElementById('question-list').addEventListener('click', checkUserAnswer);
 }
 
 //Displays a MultipleChoiceQuestion to the questionDisplay
@@ -50,10 +62,12 @@ function displayQuestion(mcQuestion) {
     question.textContent = mcQuestion.question;
     answers.setAttribute('id', 'question-list');
 
+    //Create and append answers as buttons
     for (let i = 0; i < mcQuestion.answers.length; i++) {
         let answerI = document.createElement('button');
         answerI.textContent = mcQuestion.answers[i];
 
+        //Set attribute showing if answer is correct or not
         if (i == mcQuestion.correctAnswerIndex) {
             answerI.setAttribute('data-correct', 'true');
         }

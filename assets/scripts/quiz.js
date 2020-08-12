@@ -8,18 +8,21 @@ function MultipleChoiceQuestion(question, answers, correctAnswerIndex) {
 var questionArray;
 var questionDisplay;
 var score = 0;
-var secondsRemaining = 100;
+var secondsRemaining = 20;
 
 window.onload = function () {
     questionArray = buildQuestionArray();
     questionDisplay = document.querySelector('#question-display');
 
     //Quiz timer
+    let timerDisplay = document.querySelector('#display-timer');
+    timerDisplay.textContent = secondsRemaining;
     let countdown = setInterval(function () {
         secondsRemaining--;
-        console.log(secondsRemaining);
+        timerDisplay.textContent = secondsRemaining;
 
         if (secondsRemaining <= 0) {
+            displayScore();
             clearInterval(countdown);
         }
     }, 1000);
@@ -116,6 +119,7 @@ function displayScore() {
     //Button to submit name to high score
     let submitBtn = document.createElement('button');
     submitBtn.textContent = 'Submit';
+    submitBtn.setAttribute('class', 'btn btn-primary');
     submitBtn.addEventListener('click', function () {
         //Add name and score to high score
         addToHighScores(nameInput.value, score);

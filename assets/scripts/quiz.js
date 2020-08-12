@@ -92,13 +92,23 @@ function displayQuestion(mcQuestion) {
 function displayScore() {
     clearDisplay();
 
-    //Testing
-    addToHighScores('Me', score);
-
     let scoreMessage = document.createElement('h3');
     scoreMessage.textContent = ("Your score is: " + score);
 
+    let nameInput = document.createElement('input');
+    nameInput.setAttribute('type', 'text');
+    nameInput.setAttribute('placeholder', 'Enter name');
+    nameInput.setAttribute('id', 'score-name');
+
+    let submitBtn = document.createElement('button');
+    submitBtn.textContent = 'Submit';
+    submitBtn.addEventListener('click', function () {
+        addToHighScores(nameInput.value, score);
+    });
+
     questionDisplay.appendChild(scoreMessage);
+    questionDisplay.appendChild(nameInput);
+    questionDisplay.appendChild(submitBtn);
 }
 
 function clearDisplay() {

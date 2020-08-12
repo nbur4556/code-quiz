@@ -8,10 +8,21 @@ function MultipleChoiceQuestion(question, answers, correctAnswerIndex) {
 var questionArray;
 var questionDisplay;
 var score = 0;
+var secondsRemaining = 100;
 
 window.onload = function () {
     questionArray = buildQuestionArray();
     questionDisplay = document.querySelector('#question-display');
+
+    //Quiz timer
+    let countdown = setInterval(function () {
+        secondsRemaining--;
+        console.log(secondsRemaining);
+
+        if (secondsRemaining <= 0) {
+            clearInterval(countdown);
+        }
+    }, 1000);
 
     //Display random question
     setCurrentQuestion();
@@ -92,20 +103,25 @@ function displayQuestion(mcQuestion) {
 function displayScore() {
     clearDisplay();
 
+    //Text that displays current quiz score
     let scoreMessage = document.createElement('h3');
     scoreMessage.textContent = ("Your score is: " + score);
 
+    //Input box to enter name and save as high score
     let nameInput = document.createElement('input');
     nameInput.setAttribute('type', 'text');
     nameInput.setAttribute('placeholder', 'Enter name');
     nameInput.setAttribute('id', 'score-name');
 
+    //Button to submit name to high score
     let submitBtn = document.createElement('button');
     submitBtn.textContent = 'Submit';
     submitBtn.addEventListener('click', function () {
+        //Add name and score to high score
         addToHighScores(nameInput.value, score);
     });
 
+    //Append all score display children to screen
     questionDisplay.appendChild(scoreMessage);
     questionDisplay.appendChild(nameInput);
     questionDisplay.appendChild(submitBtn);

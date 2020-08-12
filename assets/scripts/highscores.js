@@ -1,12 +1,7 @@
-allHighScores = [
-    { name: 'Josh', score: 10 },
-    { name: 'Sage', score: 7 },
-    { name: 'Trevor', score: 5 },
-    { name: 'Sophie', score: 1 },
-    { name: 'Nick', score: 0 }
-];
-
 function addToHighScores(name, score) {
+    let allHighScores = loadHighScores();
+    console.log(allHighScores);
+
     let i = 0
     do {
         //Insert score when new score is greater than indexed score
@@ -18,9 +13,20 @@ function addToHighScores(name, score) {
         i++;
     } while (i <= allHighScores.length)
 
+    //Remove the lowest score if length of allHighScores is greater than 10
     if (allHighScores.length > 10) {
         allHighScores.splice(allHighScores.length - 1, 1);
     }
 
-    console.log(allHighScores);
+    saveHighScores(allHighScores);
+}
+
+function saveHighScores(highScores) {
+    let highScoresString = JSON.stringify(highScores);
+    localStorage.setItem('high-scores', highScoresString);
+}
+
+function loadHighScores() {
+    let highScoresString = localStorage.getItem('high-scores');
+    return JSON.parse(highScoresString);
 }

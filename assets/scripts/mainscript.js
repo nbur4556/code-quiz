@@ -24,14 +24,14 @@ function checkUserAnswer(e) {
         score++
     }
 
-    //Display next question
+
     if (questionArray.length > 0) {
+        //Display next question
         setCurrentQuestion();
     }
     else {
         //Score Page
-        console.log('score page');
-        console.log('score:', score);
+        displayScore();
     }
 }
 
@@ -40,9 +40,7 @@ function setCurrentQuestion() {
     let displayIndex = Math.floor(Math.random() * questionArray.length);
 
     //Remove previous question and display new question
-    while (questionDisplay.children[0]) {
-        questionDisplay.removeChild(questionDisplay.children[0]);
-    }
+    clearDisplay();
     displayQuestion(questionArray[displayIndex]);
 
     //Remove current question object from index
@@ -66,6 +64,8 @@ function displayQuestion(mcQuestion) {
     for (let i = 0; i < mcQuestion.answers.length; i++) {
         let answerI = document.createElement('button');
         answerI.textContent = mcQuestion.answers[i];
+        answerI.setAttribute('class', 'btn btn-primary');
+        answerI.setAttribute('type', 'button');
 
         //Set attribute showing if answer is correct or not
         if (i == mcQuestion.correctAnswerIndex) {
@@ -87,6 +87,16 @@ function displayQuestion(mcQuestion) {
     //Append to questionDisplay
     questionDisplay.appendChild(question);
     questionDisplay.appendChild(answers);
+}
+
+function displayScore() {
+    clearDisplay();
+}
+
+function clearDisplay() {
+    while (questionDisplay.children[0]) {
+        questionDisplay.removeChild(questionDisplay.children[0]);
+    }
 }
 
 //Creates all MultipleChoiceQuestion objects and returns as an array
@@ -120,6 +130,16 @@ function buildQuestionArray() {
             '52000 years',
             '24 days',
             'yesterday'
+        ],
+        3
+    );
+    allQuestions[3] = new MultipleChoiceQuestion(
+        'How many legs does the typical dog have?',
+        [
+            'One',
+            'Two',
+            'Three',
+            'Four',
         ],
         3
     );

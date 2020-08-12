@@ -1,3 +1,20 @@
+const highScoresKey = 'high-scores';
+
+function displayHighScores() {
+    let allHighScores = loadHighScores();
+    let highScoreDisplay = document.querySelector('#high-score-display');
+    let scoresContainer = document.createElement('ol');
+
+    for (let i = 0; i < allHighScores.length; i++) {
+        let highScore = document.createElement('li');
+        highScore.textContent = (allHighScores[i].name + ": " + allHighScores[i].score);
+
+        scoresContainer.appendChild(highScore);
+    }
+
+    highScoreDisplay.appendChild(scoresContainer);
+}
+
 function addToHighScores(name, score) {
     let allHighScores = loadHighScores();
     console.log(allHighScores);
@@ -21,14 +38,16 @@ function addToHighScores(name, score) {
     saveHighScores(allHighScores);
 }
 
+//Save high scores to local storage
 function saveHighScores(highScores) {
     let highScoresString = JSON.stringify(highScores);
-    localStorage.setItem('high-scores', highScoresString);
+    localStorage.setItem(highScoresKey, highScoresString);
 }
 
 function loadHighScores() {
-    let highScoresString = localStorage.getItem('high-scores');
+    let highScoresString = localStorage.getItem(highScoresKey);
 
+    //If high-scores exists in localStorage, return parsed data, otherwise return new emptyn array
     if (highScoresString != null) {
         return JSON.parse(highScoresString);
     }

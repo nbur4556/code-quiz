@@ -17,4 +17,10 @@ function addToHighScores(name, score) {
 
         i++;
     } while (i <= allHighScores.length)
+
+    if (allHighScores.length > 10) {
+        allHighScores.splice(allHighScores.length - 1, 1);
+    }
+
+    console.log(allHighScores);
 }

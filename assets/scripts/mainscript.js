@@ -93,10 +93,7 @@ function displayScore() {
     clearDisplay();
 
     //Testing
-    addToHighScores('Nick', 3);
-    addToHighScores('Me', 12);
-    addToHighScores('Myself', 3);
-    addToHighScores('I', 0);
+    addToHighScores('Me', score);
 
     let scoreMessage = document.createElement('h3');
     scoreMessage.textContent = ("Your score is: " + score);

@@ -28,5 +28,11 @@ function saveHighScores(highScores) {
 
 function loadHighScores() {
     let highScoresString = localStorage.getItem('high-scores');
-    return JSON.parse(highScoresString);
+
+    if (highScoresString != null) {
+        return JSON.parse(highScoresString);
+    }
+    else {
+        return new Array();
+    }
 }

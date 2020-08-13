@@ -58,3 +58,17 @@ function loadHighScores() {
         return new Array();
     }
 }
+
+//Clear high scores from local storage
+function clearHighScores() {
+    let confirmTrue = confirm('Are you sure you want to clear high scores?');
+    let highScoreDisplay = document.querySelector('#high-score-display')
+
+    if (confirmTrue) {
+        saveHighScores(new Array());
+        //Clear Display
+        while (highScoreDisplay.children[0]) {
+            highScoreDisplay.removeChild(highScoreDisplay.children[0]);
+        }
+    }
+}

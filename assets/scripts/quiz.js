@@ -72,13 +72,15 @@ function displayQuestion(mcQuestion) {
 
     //Set text content
     question.textContent = mcQuestion.question;
+    question.setAttribute('class', 'card-header');
     answers.setAttribute('id', 'question-list');
+    answers.setAttribute('class', 'list-group');
 
     //Create and append answers as buttons
     for (let i = 0; i < mcQuestion.answers.length; i++) {
         let answerI = document.createElement('button');
         answerI.textContent = mcQuestion.answers[i];
-        answerI.setAttribute('class', 'btn btn-primary');
+        answerI.setAttribute('class', 'list-group-item btn btn-primary');
         answerI.setAttribute('type', 'button');
 
         //Set attribute showing if answer is correct or not
@@ -110,11 +112,18 @@ function displayScore() {
     let scoreMessage = document.createElement('h3');
     scoreMessage.textContent = ("Your score is: " + score);
 
+    //Input group containers for styling
+    let inputGroup = document.createElement('div');
+    let inputBtnAppend = document.createElement('div');
+    inputGroup.setAttribute('class', 'input-group');
+    inputBtnAppend.setAttribute('class', 'input-group-append');
+
     //Input box to enter name and save as high score
     let nameInput = document.createElement('input');
     nameInput.setAttribute('type', 'text');
     nameInput.setAttribute('placeholder', 'Enter name');
     nameInput.setAttribute('id', 'score-name');
+    nameInput.setAttribute('class', 'form-control');
 
     //Button to submit name to high score
     let submitBtn = document.createElement('button');
@@ -126,9 +135,11 @@ function displayScore() {
     });
 
     //Append all score display children to screen
+    inputGroup.appendChild(nameInput);
+    inputBtnAppend.appendChild(submitBtn);
+    inputGroup.appendChild(inputBtnAppend)
     questionDisplay.appendChild(scoreMessage);
-    questionDisplay.appendChild(nameInput);
-    questionDisplay.appendChild(submitBtn);
+    questionDisplay.appendChild(inputGroup);
 }
 
 function clearDisplay() {

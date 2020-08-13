@@ -5,9 +5,12 @@ function displayHighScores() {
     let highScoreDisplay = document.querySelector('#high-score-display');
     let scoresContainer = document.createElement('ol');
 
+    scoresContainer.setAttribute('class', 'list-group');
+
     for (let i = 0; i < allHighScores.length; i++) {
         let highScore = document.createElement('li');
-        highScore.textContent = (allHighScores[i].name + ": " + allHighScores[i].score);
+        highScore.textContent = ((i + 1) + ". " + allHighScores[i].name + ": " + allHighScores[i].score);
+        highScore.setAttribute('class', 'list-group-item');
 
         scoresContainer.appendChild(highScore);
     }

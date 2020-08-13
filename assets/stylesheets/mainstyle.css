@@ -1,3 +1,16 @@
 body{
-    background-color: grey;
+    background-color: #EBE8ED;
+}
+h1, h2, h3, h4, h5, h6, p, li, div{
+    color: #352d39;
+}
+.jumbotron{
+    padding: 40px;
+    background-color: #FFFCF9
+}
+.btn-primary{
+    margin-bottom: 5px;
+    border-color: #cdc6d2;
+    background-color: #cdc6d2;
+    color: #352d39;
 }

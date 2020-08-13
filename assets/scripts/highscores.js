@@ -1,5 +1,6 @@
 const highScoresKey = 'high-scores';
 
+//Display top 10 high scores to document. Triggers when high-scores.html is loaded
 function displayHighScores() {
     let allHighScores = loadHighScores();
     let highScoreDisplay = document.querySelector('#high-score-display');
@@ -18,9 +19,9 @@ function displayHighScores() {
     highScoreDisplay.appendChild(scoresContainer);
 }
 
+//Create high score array of top 10 scores using current score, and local storage
 function addToHighScores(name, score) {
     let allHighScores = loadHighScores();
-    console.log(allHighScores);
 
     let i = 0
     do {
@@ -47,10 +48,11 @@ function saveHighScores(highScores) {
     localStorage.setItem(highScoresKey, highScoresString);
 }
 
+//Return high scores from local storage
 function loadHighScores() {
     let highScoresString = localStorage.getItem(highScoresKey);
 
-    //If high-scores exists in localStorage, return parsed data, otherwise return new emptyn array
+    //If high-scores exists in localStorage, return parsed data, otherwise return new empty array
     if (highScoresString != null) {
         return JSON.parse(highScoresString);
     }

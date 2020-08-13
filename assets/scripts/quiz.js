@@ -8,7 +8,7 @@ function MultipleChoiceQuestion(question, answers, correctAnswerIndex) {
 var questionArray;
 var questionDisplay;
 var score = 0;
-var secondsRemaining = 60;
+var secondsRemaining = 1000;
 
 window.onload = function () {
     questionArray = buildQuestionArray();
@@ -21,7 +21,9 @@ window.onload = function () {
         secondsRemaining--;
         timerDisplay.textContent = secondsRemaining;
 
+        //Time runs out
         if (secondsRemaining <= 0) {
+            timerDisplay.textContent = 0;
             displayScore();
             clearInterval(countdown);
         }
@@ -34,22 +36,23 @@ window.onload = function () {
 //Check if answer is correct
 function checkUserAnswer(e) {
     let resultText = document.querySelector('#question-result');
+    let timePenalty = 10;
 
-    //If answer is correct, increase score
+    //If answer is correct increase score, otherwise subtract from time remaining
     if (e.target.getAttribute('data-correct') == 'true') {
         score++
         resultText.textContent = 'Correct';
     }
     else {
+        secondsRemaining -= timePenalty;
         resultText.textContent = 'Incorrect';
     }
 
+    //If more questions are available display next question, otherwise display score
     if (questionArray.length > 0) {
-        //Display next question
         setCurrentQuestion();
     }
     else {
-        //Score Page
         displayScore();
     }
 }
@@ -110,6 +113,7 @@ function displayQuestion(mcQuestion) {
     questionDisplay.appendChild(answers);
 }
 
+//Show score to user, and give option to enter name and submit for high score
 function displayScore() {
     clearDisplay();
 
@@ -148,6 +152,7 @@ function displayScore() {
     questionDisplay.appendChild(inputGroup);
 }
 
+//Remove all children of display element
 function clearDisplay() {
     while (questionDisplay.children[0]) {
         questionDisplay.removeChild(questionDisplay.children[0]);
@@ -159,176 +164,176 @@ function buildQuestionArray() {
     let allQuestions = new Array();
 
     allQuestions[0] = new MultipleChoiceQuestion(
-        'Inside which HTML element do we put the JavaScript?',
+        'Which of these elements is an inline element?',
         [
-            '<script>',
-            '<javascript>',
-            '<scripting>',
-            '<js>'
-        ],
-        0
-    );
-    allQuestions[1] = new MultipleChoiceQuestion(
-        'What is the correct JavaScript syntax to change the content of this HTML element? <p id="demo">This is a demonstration.</p>',
-        [
-            'document.getElementByName("p").innerHTML = "Hello World!";  ',
-            'document.getElementById("demo").innerHTML = "Hello World!";  ',
-            '#demo.innerHTML = "Hello World!";',
-            'document.getElement("p").innerHTML = "Hello World!";'
-        ],
-        1
-    );
-    allQuestions[2] = new MultipleChoiceQuestion(
-        'Where is the correct place to insert a JavaScript?',
-        [
-            'The <body> section',
-            'The <head> section',
-            'Both the <head> section and the <body> section are correct  '
+            '<div>',
+            '<p>',
+            '<span>',
+            '<header>'
         ],
         2
     );
-    allQuestions[3] = new MultipleChoiceQuestion(
-        'What is the correct syntax for referring to an external script called "xxx.js"?',
+    allQuestions[1] = new MultipleChoiceQuestion(
+        'How do you add CSS styling to an HTML document?',
         [
-            '<script src="xxx.js">',
-            '<script name="xxx.js">',
-            '<script href="xxx.js">'
+            'As a seperate file, and linked through the <link> tag',
+            'In <style> tags located in the <head> of the document',
+            'In style attributes on each HTML element',
+            'All three are acceptable options'
+        ],
+        3
+    );
+    allQuestions[2] = new MultipleChoiceQuestion(
+        'What is NOT part of the CSS box model?',
+        [
+            'color',
+            'padding',
+            'margin'
         ],
         0
     );
+    allQuestions[3] = new MultipleChoiceQuestion(
+        'What type of variable can not be changed once defined?',
+        [
+            'let',
+            'const',
+            'var'
+        ],
+        1
+    );
     allQuestions[4] = new MultipleChoiceQuestion(
-        'The external JavaScript file must contain the <script> tag.',
+        'The DOM (Document Object Model) allows you to dynamically change the HTML of a document using JavaScript.',
         [
             'True',
             'False'
         ],
-        1
+        0
     );
     allQuestions[5] = new MultipleChoiceQuestion(
-        'How do you write "Hello World" in an alert box?',
+        'What would you use to execute a block of code only if a condition is true',
         [
-            'msg("Hello World");',
-            'alert("Hello World");',
-            'alertBox("Hello World");',
-            'msgBox("Hello World");'
+            'For Loop',
+            'Conditional',
+            'Function',
+            'Object'
         ],
         1
     );
     allQuestions[6] = new MultipleChoiceQuestion(
-        'How do you create a function in JavaScript?',
+        'Which of these returns a true or false boolean?',
         [
-            'function = myFunction()',
-            'function:myFunction()',
-            'function myFunction()'
+            'alert("Would you like to continue?")',
+            'prompt("Would you like to continue?")',
+            'confirm("Would you like to continue?")'
         ],
         2
     );
     allQuestions[7] = new MultipleChoiceQuestion(
-        'How do you call a function named "myFunction"?',
+        'How do you check that two variables are equal to the same value and variable type?',
         [
-            'myFunction()  ',
-            'call myFunction()',
-            'call function myFunction()'
+            '=',
+            '==',
+            '==='
         ],
         0
     );
     allQuestions[8] = new MultipleChoiceQuestion(
-        'How to write an IF statement in JavaScript?',
+        'Which of these is an object?',
         [
-            'if (i == 5)',
-            'if i = 5',
-            'if i = 5 then',
-            'if i == 5 then'
+            '{ a: 0, b: 1, c: 2 }',
+            '[ a: 0, b: 1, c: 2 ]',
+            '[ a, b, c ]',
+            '{ 0, 1, 2 }'
         ],
         0
     );
     allQuestions[9] = new MultipleChoiceQuestion(
-        'How to write an IF statement for executing some code if "i" is NOT equal to 5?',
+        'What does the return statement in a function do?',
         [
-            'if (i <> 5)',
-            'if i =! 5 then',
-            'if (i != 5)',
-            'if i <> 5'
+            'Allows the function to continue, and returns a value from the function',
+            'Returns to the previous page',
+            'Stops the function, and returns a value from the function',
+            'Returns to the begining of the function, and executes again'
         ],
         2
     );
     allQuestions[10] = new MultipleChoiceQuestion(
-        'How does a WHILE loop start?',
+        'What tag is introduced in HTML5?',
         [
-            'while i = 1 to 10',
-            'while (i <= 10)',
-            'while (i <= 10; i++)'
+            '<table>',
+            '<article>',
+            '<script>'
         ],
         1
     );
     allQuestions[11] = new MultipleChoiceQuestion(
-        'How does a FOR loop start?',
+        'Which of these is a correct for loop?',
         [
-            'for i = 1 to 5',
-            'for (i = 0; i <= 5)',
-            'for (i = 0; i <= 5; i++)',
-            'for (i <= 5; i++)'
+            'while(i < 10)',
+            'for(i < 10)',
+            'for(i = 0; i < 10; i++)',
+            'for(i = 0; i < 10)'
         ],
         2
     );
     allQuestions[12] = new MultipleChoiceQuestion(
-        'How can you add a comment in a JavaScript?',
+        'What does a do/while loop do?',
         [
-            '//This is a comment',
-            "'This is a comment",
-            '<!--This is a comment-->'
+            'Loops a set number of times',
+            'Loops while a condition is true',
+            'Loops at least once, and continues to loop while a condition is true'
         ],
-        0
+        2
     );
     allQuestions[13] = new MultipleChoiceQuestion(
-        'How to insert a comment that has more than one line?',
+        'Which of these is a correct while loop?',
         [
-            '//This comment has more than one line//',
-            '<!--This comment has more than one line-->',
-            '/*This comment has more than one line*/'
+            'for(i < 10)',
+            'while(i = 0; i < 10; i++)',
+            'while(i < 10)'
         ],
         2
     );
     allQuestions[14] = new MultipleChoiceQuestion(
-        'How do you round the number 7.25, to the nearest integer?',
+        'Which of these is an array?',
         [
-            'Math.rnd(7.25)',
-            'round(7.25)',
-            'Math.round(7.25)',
-            'rnd(7.25)'
+            '< a, b, c >',
+            '{ a, b, c }',
+            '[ a, b, c ]',
+            '( a, b, c )'
         ],
         2
     );
     allQuestions[15] = new MultipleChoiceQuestion(
-        'What is the correct way to write a JavaScript array?',
+        'Which of these is NOT a feature of Bootstrap?',
         [
-            'var colors = "red", "green", "blue"',
-            'var colors = ["red", "green", "blue"]',
-            'var colors = 1 = ("red"), 2 = ("green"), 3 = ("blue")',
-            'var colors = (1:"red", 2:"green", 3:"blue")'
+            'Responsive Layout',
+            'Prebuilt Components',
+            'Grid System',
+            'Simplified DOM Traversal'
         ],
-        1
+        3
     );
     allQuestions[16] = new MultipleChoiceQuestion(
-        'How do you find the number with the highest value of x and y?',
+        'How do you store data in the users local storage?',
         [
-            'ceil(x, y)',
-            'top(x, y)',
-            'Math.max(x, y)',
-            'Math.ceil(x, y)'
+            'localStorage( VALUE )',
+            'local( VALUE )',
+            'localStorage( KEY, VALUE )',
+            'local( KEY, VALUE )'
         ],
         2
     );
     allQuestions[17] = new MultipleChoiceQuestion(
-        'What is the correct JavaScript syntax for opening a new window called "w2" ?',
+        'JavaSript objects are containers for key:value pairs.',
         [
-            'w2 = window.new("http://www.w3schools.com");',
-            'w2 = window.open("http://www.w3schools.com");'
+            'True',
+            'False'
         ],
-        1
+        0
     );
     allQuestions[18] = new MultipleChoiceQuestion(
-        'JavaScript is the same as Java.',
+        'Bootstrap is a library included in your browser. It does not have to be installed.',
         [
             'True',
             'False'
@@ -336,57 +341,57 @@ function buildQuestionArray() {
         1
     );
     allQuestions[19] = new MultipleChoiceQuestion(
-        "How can you detect the client's browser name?",
+        'Which of these is the operator for multiplication?',
         [
-            'browser.name',
-            'navigator.appName',
-            'client.navName'
+            'x',
+            '*',
+            'X'
         ],
         1
     );
     allQuestions[20] = new MultipleChoiceQuestion(
-        'Which event occurs when the user clicks on an HTML element?',
+        'Which of these will give a random integer between 1 and 10?',
         [
-            'onchange',
-            'onclick',
-            'onmouseclick',
-            'onmouseover'
+            'Math.random() * 10',
+            'Math.floor( Math.random() * 10 ) + 1',
+            'Math.floor( Math.random() * 10 )',
+            '( Math.random() * 10 ) + 1'
         ],
         1
     );
     allQuestions[21] = new MultipleChoiceQuestion(
-        'How do you declare a JavaScript variable?',
+        'How do you write to the console in the browser?',
         [
-            'v carName;',
-            'variable carName;',
-            'var carName;'
+            'console()',
+            'console.log()',
+            'Debug.log()'
         ],
-        2
+        1
     );
     allQuestions[22] = new MultipleChoiceQuestion(
-        'Which operator is used to assign a value to a variable?',
+        'What type of value is returned from a prompt?',
         [
-            '-',
-            'X',
-            '*',
-            '='
+            'float',
+            'integer',
+            'boolean',
+            'string'
         ],
         3
     );
     allQuestions[23] = new MultipleChoiceQuestion(
-        'What will the following code return: Boolean(10 > 9)',
+        'What is the value of Number("Hello World")?',
         [
-            'NaN',
-            'false',
-            'true'
+            'null',
+            'undefined',
+            'NaN'
         ],
         2
     );
     allQuestions[24] = new MultipleChoiceQuestion(
-        'Is JavaScript case-sensitive?',
+        'How do you change background color in CSS?',
         [
-            'Yes',
-            'No'
+            'background-color',
+            'backgroundColor'
         ],
         0
     );

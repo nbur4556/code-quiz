@@ -33,11 +33,16 @@ window.onload = function () {
 
 //Check if answer is correct
 function checkUserAnswer(e) {
+    let resultText = document.querySelector('#question-result');
+
     //If answer is correct, increase score
     if (e.target.getAttribute('data-correct') == 'true') {
         score++
+        resultText.textContent = 'Correct';
     }
-
+    else {
+        resultText.textContent = 'Incorrect';
+    }
 
     if (questionArray.length > 0) {
         //Display next question

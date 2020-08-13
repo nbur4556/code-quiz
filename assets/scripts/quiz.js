@@ -7,8 +7,9 @@ function MultipleChoiceQuestion(question, answers, correctAnswerIndex) {
 
 var questionArray;
 var questionDisplay;
+var countdown
 var score = 0;
-var secondsRemaining = 1000;
+var secondsRemaining = 150;
 
 window.onload = function () {
     questionArray = buildQuestionArray();
@@ -17,7 +18,7 @@ window.onload = function () {
     //Quiz timer
     let timerDisplay = document.querySelector('#display-timer');
     timerDisplay.textContent = secondsRemaining;
-    let countdown = setInterval(function () {
+    countdown = setInterval(function () {
         secondsRemaining--;
         timerDisplay.textContent = secondsRemaining;
 
@@ -53,6 +54,7 @@ function checkUserAnswer(e) {
         setCurrentQuestion();
     }
     else {
+        clearInterval(countdown);
         displayScore();
     }
 }
@@ -235,7 +237,7 @@ function buildQuestionArray() {
             '==',
             '==='
         ],
-        0
+        2
     );
     allQuestions[8] = new MultipleChoiceQuestion(
         'Which of these is an object?',
@@ -269,10 +271,10 @@ function buildQuestionArray() {
     allQuestions[11] = new MultipleChoiceQuestion(
         'Which of these is a correct for loop?',
         [
-            'while(i < 10)',
-            'for(i < 10)',
-            'for(i = 0; i < 10; i++)',
-            'for(i = 0; i < 10)'
+            'while( i < 10 )',
+            'for( i < 10 )',
+            'for( i = 0; i < 10; i++ )',
+            'for( i = 0; i < 10 )'
         ],
         2
     );
@@ -288,9 +290,9 @@ function buildQuestionArray() {
     allQuestions[13] = new MultipleChoiceQuestion(
         'Which of these is a correct while loop?',
         [
-            'for(i < 10)',
-            'while(i = 0; i < 10; i++)',
-            'while(i < 10)'
+            'for( i < 10 )',
+            'while( i = 0; i < 10; i++ )',
+            'while( i < 10 )'
         ],
         2
     );

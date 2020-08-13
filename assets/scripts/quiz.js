@@ -130,8 +130,9 @@ function displayScore() {
     submitBtn.textContent = 'Submit';
     submitBtn.setAttribute('class', 'btn btn-primary');
     submitBtn.addEventListener('click', function () {
-        //Add name and score to high score
+        //Add name and score to high score and load high scores page
         addToHighScores(nameInput.value, score);
+        location.href = '../../high-scores.html';
     });
 
     //Append all score display children to screen

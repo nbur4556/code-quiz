@@ -8,9 +8,29 @@ h1, h2, h3, h4, h5, h6, p, li, div{
     padding: 40px;
     background-color: #FFFCF9
 }
+.card, .card-header{
+    background-color: #FFFCF9;
+}
+.list-group-item{
+    padding-left: 70px;
+    font-size: 20px;
+    background-color: #FFFCF9;
+}
 .btn-primary{
     margin-bottom: 5px;
     border-color: #cdc6d2;
     background-color: #cdc6d2;
     color: #352d39;
+}
+.btn-primary:focus{
+    border-color: #415a77;
+    background-color: #415a77;
+}
+.btn-primary:hover{
+    border-color: #415a77;
+    background-color: #415a77;
+}
+.btn-primary:active{
+    border-color: #415a77;
+    background-color: #415a77;
 }
